@@ -1,16 +1,14 @@
 #!/usr/bin/python3
 """
-Module: unlock_boxes
-
 This module provides a function for determining whether it is possible
 to unlock all boxes in a given list of boxes. The primary function,
-'canUnlockAll', uses a depth-first search approach to explore
+'canUnlockAll', uses a breadth-first search (BFS) approach to explore
 the connectivity between boxes, checking if all boxes can be visited
 starting from the first box (index 0).
 
 Functions:
-    canUnlockAll(boxes): Determines if all boxes in the given list
-    can be unlocked.
+    canUnlockAll(boxes): Determines if all boxes in
+    the given list can be unlocked using a BFS approach.
 
 Example Usage:
     from 0-lockboxes import canUnlockAll
@@ -34,8 +32,12 @@ def canUnlockAll(boxes):
     Returns:
         bool: True if it is possible to unlock all boxes, False otherwise.
 
-    The function uses a depth-first search approach to explore
-    the connectivity between boxes and checks if all boxes
+    The function uses a breadth-first search (BFS) approach to explore
+    the connectivity between boxes. It iterates through the keys in a loop
+    and, for each key, iterates through the corresponding box's keys to
+    update the 'keys' list. This process continues until all reachable
+    boxes have been added to the 'keys' list or until it is determined
+    that not all boxes can be unlocked. The goal is to check if all boxes
     can be visited starting from the first box (index 0).
     """
 
