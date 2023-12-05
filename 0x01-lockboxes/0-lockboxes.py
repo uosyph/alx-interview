@@ -9,7 +9,8 @@ the connectivity between boxes, checking if all boxes can be visited
 starting from the first box (index 0).
 
 Functions:
-    canUnlockAll(boxes): Determines if all boxes in the given list can be unlocked.
+    canUnlockAll(boxes): Determines if all boxes in the given list
+    can be unlocked.
 
 Example Usage:
     from 0-lockboxes import canUnlockAll
@@ -38,16 +39,15 @@ def canUnlockAll(boxes):
     can be visited starting from the first box (index 0).
     """
 
-    visited_boxes = set([0])
-    unvisited_boxes = set(boxes[0]).difference(set([0]))
+    visited_boxes = set()
+    keys = [0]
 
-    while len(unvisited_boxes) > 0:
-        box = unvisited_boxes.pop()
-        if not box or box >= len(boxes) or box < 0:
-            continue
+    while keys:
+        current_key = keys.pop()
+        visited_boxes.add(current_key)
 
-        if box not in visited_boxes:
-            unvisited_boxes = unvisited_boxes.union(boxes[box])
-            visited_boxes.add(box)
+        for box_key in boxes[current_key]:
+            if box_key not in visited_boxes and 0 <= box_key < len(boxes):
+                keys.append(box_key)
 
-    return len(boxes) == len(visited_boxes)
+    return len(visited_boxes) == len(boxes)
