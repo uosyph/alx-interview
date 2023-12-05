@@ -50,4 +50,6 @@ def canUnlockAll(boxes):
             if box_key not in visited_boxes and 0 <= box_key < len(boxes):
                 keys.append(box_key)
 
-    return len(visited_boxes) == len(boxes)
+    if len(keys) == len(boxes):
+        return True
+    return False
