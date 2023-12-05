@@ -38,11 +38,16 @@ def canUnlockAll(boxes):
     can be visited starting from the first box (index 0).
     """
 
-    keys = [0]
-    for key in keys:
-        for box_key in boxes[key]:
-            if box_key not in keys and box_key < len(boxes):
-                keys.append(box_key)
-    if len(keys) == len(boxes):
-        return True
-    return False
+    visited_boxes = set([0])
+    unvisited_boxes = set(boxes[0]).difference(set([0]))
+
+    while len(unvisited_boxes) > 0:
+        box = unvisited_boxes.pop()
+        if not box or box >= len(boxes) or box < 0:
+            continue
+
+        if box not in visited_boxes:
+            unvisited_boxes = unvisited_boxes.union(boxes[box])
+            visited_boxes.add(box)
+
+    return len(boxes) == len(visited_boxes)
