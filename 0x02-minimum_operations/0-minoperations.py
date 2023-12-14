@@ -12,8 +12,7 @@ int: The minimum number of operations required to transform 'n' into 1.
 
 Note:
 - If 'n' is not a positive integer or less than 2, the function returns 0.
-- The function uses prime factorization to find the
-smallest prime factors of 'n'.
+- Uses prime factorization to find the smallest prime factors of 'n'.
 """
 
 
