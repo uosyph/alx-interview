@@ -1,12 +1,21 @@
 #!/usr/bin/python3
 """
 Processing stdin line by line and calculating metrics.
-"""
 
-import sys
+This script reads input lines from stdin, parses them,
+and computes metrics such as file size and HTTP status code occurrences.
+
+It prints statistics in ascending order,
+including the file size and the count of each HTTP status code encountered.
+
+Usage:
+    ./0-generator.py | ./0-stats.py
+"""
 
 
 if __name__ == "__main__":
+    import sys
+
     status_code_counts = {
         "200": 0,
         "301": 0,
@@ -21,7 +30,15 @@ if __name__ == "__main__":
     file_size = 0
 
     def parse_line(log_entry):
-        """Read, parse, and extract relevant data from a given log entry."""
+        """
+        Read, parse, and extract relevant data from a given log entry.
+
+        Args:
+            log_entry (str): A log entry to be parsed.
+
+        Returns:
+            int: The size of the file indicated in the log entry.
+        """
         try:
             parsed_entry = log_entry.split()
             status_code = parsed_entry[-2]
@@ -32,7 +49,12 @@ if __name__ == "__main__":
             return 0
 
     def print_stats():
-        """Print statistics in ascending order."""
+        """
+        Print statistics in ascending order based on HTTP status codes.
+
+        Prints the total file size and the log_entry_count
+        of each HTTP status code encountered.
+        """
         print(f"File size: {file_size}")
         for key in sorted(status_code_counts.keys()):
             if status_code_counts[key]:
