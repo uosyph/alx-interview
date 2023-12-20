@@ -2,10 +2,6 @@
 """
 0-main
 """
-import sys
-import os
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 pascal_triangle = __import__("0-pascal_triangle").pascal_triangle
 
