@@ -9,8 +9,35 @@ import sys
 
 def print_queens_solution(board):
     """Prints the solution in a readable format"""
-    queens_positions = [(row, board[row].index(1)) for row in range(len(board))]
+    queens_positions = [(row, board[row].index(1))
+                        for row in range(len(board))]
     print(queens_positions)
+
+
+def is_valid_queen_placement(board, current_column, current_row, board_size):
+    """Checks if placing a queen at a given position is valid"""
+    # Check previous columns
+    for previous_column in range(current_column):
+        if board[current_row][previous_column] == 1:
+            return False
+
+    # Check upper diagonal
+    row, column = current_row, current_column
+    while row >= 0 and column >= 0:
+        if board[row][column] == 1:
+            return False
+        row -= 1
+        column -= 1
+
+    # Check lower diagonal
+    row, column = current_row, current_column
+    while row < board_size and column >= 0:
+        if board[row][column] == 1:
+            return False
+        row += 1
+        column -= 1
+
+    return True
 
 
 def solve_n_queens(board, current_column, board_size):
@@ -18,6 +45,20 @@ def solve_n_queens(board, current_column, board_size):
     if current_column == board_size:
         print_queens_solution(board)
         return True
+
+    solution_found = False
+    for current_row in range(board_size):
+        if is_valid_queen_placement(board, current_column,
+                                    current_row, board_size
+                                    ):
+            board[current_row][current_column] = 1
+            solution_found = (
+                solve_n_queens(board, current_column + 1, board_size)
+                or solution_found
+            )
+            board[current_row][current_column] = 0
+
+    return solution_found
 
 
 if __name__ == "__main__":
