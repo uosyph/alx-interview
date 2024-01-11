@@ -70,10 +70,7 @@ def initialize_board(n):
         list: The initialized chessboard.
     """
 
-    board = []
-    for _ in range(n):
-        board.append([0 for _ in range(n)])
-    return board
+    return [[0] * n for _ in range(n)]
 
 
 def solve_nqueens(board, row):
@@ -100,7 +97,6 @@ def solve_nqueens(board, row):
                 return board
             else:
                 board[row][column] = 0
-    return
 
 
 def format_solution(board):
@@ -129,6 +125,9 @@ def nqueens_solver(n):
 
     Parameters:
         n (int): The size of the chessboard.
+
+    Returns:
+        None
     """
 
     for column in range(n):
