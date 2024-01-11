@@ -1,13 +1,15 @@
 #!/usr/bin/python3
-"""Solving the N-Queens challenge problem.
+"""
+N-Queens Solver
 
-The N queens puzzle is the challenge of placing
+The N-Queens puzzle is the challenge of placing
 N non-attacking queens on an N×N chessboard.
 
-Usage: ./101-nqueens.py <N>
+Usage: ./0-nqueens.py <N>
     Where N must be an integer greater or equal to 4.
 
-Returns: Every possible solution to the problem.
+Returns:
+    Every possible solution to the problem.
     One solution per line.
     Solutions are not printed in a specific order.
 """
@@ -15,55 +17,57 @@ Returns: Every possible solution to the problem.
 from sys import argv
 
 
-def check_spot(board, r, c):
-    """Checks spots for the board.
+def is_valid_queen_placement(board, current_row, current_column):
+    """
+    Checks if placing a queen at a given position is valid.
 
-    Args:
-        board (list): A board to check.
-        r (int): Row.
-        c (int): Column.
+    Parameters:
+        - board (list): The chessboard representation with queen placements.
+        - current_column (int): The current column being considered
+                                for queen placement.
+        - current_row (int): The current row being considered
+                             for queen placement.
 
     Returns:
-        0: On success.
-        1: On failure.
+        bool: True if queen placement is valid, False otherwise.
     """
 
-    n = len(board) - 1
+    # Check the column
+    if board[current_row][current_column]:
+        return False
 
-    if board[r][c]:
-        return 0
+    for row in range(current_row):
+        if board[row][current_column]:
+            return False
 
-    for row in range(r):
-        if board[row][c]:
-            return 0
+    # Check upper-left diagonal
+    row, column = current_row, current_column
+    while row > 0 and column > 0:
+        row -= 1
+        column -= 1
+        if board[row][column]:
+            return False
 
-    i = r
-    j = c
-    while i > 0 and j > 0:
-        i -= 1
-        j -= 1
-        if board[i][j]:
-            return 0
+    # Check upper-right diagonal
+    row, column = current_row, current_column
+    while row > 0 and column < len(board) - 1:
+        row -= 1
+        column += 1
+        if board[row][column]:
+            return False
 
-    i = r
-    j = c
-    while i > 0 and j < n:
-        i -= 1
-        j += 1
-        if board[i][j]:
-            return 0
-
-    return 1
+    return True
 
 
-def init_board(n=4):
-    """Initializes the board.
+def initialize_board(n):
+    """
+    Initializes an empty chessboard of size N.
 
-    Args:
-        n (int, optional): The number of queens. Defaults to 4.
+    Parameters:
+        n (int): The size of the chessboard.
 
     Returns:
-        board: The initialized board.
+        list: The initialized chessboard.
     """
 
     board = []
@@ -72,83 +76,79 @@ def init_board(n=4):
     return board
 
 
-def solve(board, row):
-    """Solves a row in the board.
+def solve_nqueens(board, row):
+    """
+    Recursively solves the N-Queens puzzle.
 
-    Args:
-        board (list): The board.
-        row (int): The row to solve.
+    Parameters:
+        board (list): The chessboard.
+        row (int): The current row to consider.
 
     Returns:
-        board: The solved board.
-        None: On failure.
+        None
     """
 
-    for col in range(len(board)):
-        if check_spot(board, row, col):
-            board[row][col] = 1
+    for column in range(len(board)):
+        if is_valid_queen_placement(board, row, column):
+            board[row][column] = 1
 
             if row == len(board) - 1:
-                print(appl_soln(board))
-                board[row][col] = 0
+                print(format_solution(board))
+                board[row][column] = 0
                 continue
-            elif solve(board, row + 1):
+            elif solve_nqueens(board, row + 1):
                 return board
             else:
-                board[row][col] = 0
+                board[row][column] = 0
     return
 
 
-def appl_soln(board):
-    """Apply the solution.
+def format_solution(board):
+    """
+    Formats the solution as a list of queen positions.
 
-    Args:
-        board (list): The board to apply the solution.
+    Parameters:
+        board (list): The chessboard with queens placed.
 
     Returns:
-        soln: The solution.
+        list: The list of queen positions.
     """
 
-    soln = []
-    n = len(board)
+    solution = []
 
-    for r in range(n):
-        for c in range(n):
-            if board[r][c]:
-                soln.append([r, c])
-    return soln
+    for row in range(len(board)):
+        for column in range(len(board)):
+            if board[row][column]:
+                solution.append([row, column])
+    return solution
 
 
-def nqueens(n=4):
-    """Solves row by row in each column.
+def nqueens_solver(n):
+    """
+    Solves the N-Queens puzzle for a given board size.
 
-    Args:
-        n (int, optional): The number of queens. Defaults to 4.
+    Parameters:
+        n (int): The size of the chessboard.
     """
 
-    for col in range(n):
-        board = init_board(n)
-        board[0][col] = 1
-        solve(board, 1)
-
-
-def main():
-    """Validates arguments and starts solving."""
-
-    if len(argv) != 2:
-        print("Usage: nqueens N")
-        exit(1)
-    try:
-        n = int(argv[1])
-    except ValueError:
-        print("N must be a number")
-        exit(1)
-    if n < 4:
-        print("N must be at least 4")
-        exit(1)
-
-    nqueens(n)
+    for column in range(n):
+        board = initialize_board(n)
+        board[0][column] = 1
+        solve_nqueens(board, 1)
 
 
 if __name__ == "__main__":
-    main()
+    if len(argv) != 2:
+        print("Usage: nqueens N")
+        exit(1)
+
+    try:
+        n = int(argv[1])
+        if n < 4:
+            print("N must be at least 4")
+            exit(1)
+    except ValueError:
+        print("N must be a number")
+        exit(1)
+
+    nqueens_solver(n)
