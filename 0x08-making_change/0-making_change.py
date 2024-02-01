@@ -22,21 +22,14 @@ def makeChange(coins, total):
     if total <= 0:
         return 0
 
-    infinite = total + 1
-    coin_count = {0: 0}
+    coin_count = 0
+    coins = sorted(coins)[::-1]
 
-    for current_total in range(1, total + 1):
-        coin_count[current_total] = infinite
+    for coin in coins:
+        while coin <= total:
+            total -= coin
+            coin_count += 1
+        if total == 0:
+            return coin_count
 
-        for coin_value in coins:
-            remaining_total = current_total - coin_value
-            if remaining_total < 0:
-                continue
-
-            coin_count[current_total] = min(coin_count[remaining_total] + 1,
-                                            coin_count[current_total])
-
-    if coin_count[total] == total + 1:
-        return -1
-
-    return coin_count[total]
+    return -1
