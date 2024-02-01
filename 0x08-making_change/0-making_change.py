@@ -25,7 +25,7 @@ def makeChange(coins, total):
     infinite = total + 1
     coin_count = {0: 0}
 
-    for current_total in range(1, infinite):
+    for current_total in range(1, total + 1):
         coin_count[current_total] = infinite
 
         for coin_value in coins:
@@ -36,7 +36,7 @@ def makeChange(coins, total):
             coin_count[current_total] = min(coin_count[remaining_total] + 1,
                                             coin_count[current_total])
 
-    if coin_count[total] == infinite:
+    if coin_count[total] == total + 1:
         return -1
 
     return coin_count[total]
