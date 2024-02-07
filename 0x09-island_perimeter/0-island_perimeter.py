@@ -1,12 +1,24 @@
 #!/usr/bin/python3
 """
-Function to find the perimeter of the island
+This module provides a function to calculate
+the perimeter of an island represented by a grid.
+
+The island is represented as a 2D grid where 1s represent land and 0s
+represent water. The perimeter of the island is defined as the total length
+of the boundary between land and water.
 """
 
 
 def island_perimeter(grid):
     """
-    A function that takes a list an returns a perimeter
+    Calculate the perimeter of the island based on the provided grid.
+
+    Args:
+        grid (List[List[int]]): A 2D grid representing the island
+        where 1s represent land and 0s represent water.
+
+    Returns:
+        int: The perimeter of the island.
     """
     perimeter_count = 0
     rows = len(grid)
