@@ -5,6 +5,9 @@ Module to determine the winner of a prime game.
 
 
 def is_prime(number):
+    """
+    Checks if a number is prime.
+    """
     for divisor in range(2, int(number**0.5) + 1):
         if not number % divisor:
             return False
@@ -12,6 +15,9 @@ def is_prime(number):
 
 
 def calculate_primes(up_to_number, primes):
+    """
+    Calculate all prime numbers up to a given number.
+    """
     highest_prime = primes[-1]
     if up_to_number > highest_prime:
         for num in range(highest_prime + 1, up_to_number + 1):
@@ -19,6 +25,9 @@ def calculate_primes(up_to_number, primes):
 
 
 def isWinner(x, nums):
+    """
+    Determine the winner of a prime game.
+    """
     players_wins = {"Maria": 0, "Ben": 0}
     primes = [0, 0, 2]
 
