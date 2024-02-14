@@ -19,4 +19,21 @@ def calculate_primes(up_to_number, primes):
 
 
 def isWinner(x, nums):
-    ...
+    players_wins = {"Maria": 0, "Ben": 0}
+    primes = [0, 0, 2]
+
+    calculate_primes(max(nums), primes)
+
+    for round_num in range(x):
+        sum_options = sum(
+            (i != 0 and i <= nums[round_num])
+            for i in primes[: nums[round_num] + 1]
+        )
+        players_wins["Maria" if sum_options % 2 else "Ben"] += 1
+
+    if players_wins["Ben"] < players_wins["Maria"]:
+        return "Maria"
+    elif players_wins["Ben"] > players_wins["Maria"]:
+        return "Ben"
+
+    return None
