@@ -4,14 +4,14 @@
   </a>
 </p>
 
-# ALX Interview Preparation - Algorithm Challenges and Problem Solving
+# ALX Interview Preparation - Algorithm Challenges and Problem Solving.
 
 This repository contains a collection of algorithm challenges and problem-solving exercises aimed at preparing for technical interviews.
 These exercises cover a wide range of topics, including dynamic programming, graph algorithms, and data structure manipulation.
 
 ## Overview
 
-The ALX Interview Preparation track is designed to help you master the key concepts and problem-solving techniques required for technical interviews.
+The ALX Interview Preparation track is designed to help master key concepts and problem-solving techniques required for technical interviews.
 This repository includes a variety of challenging problems that are commonly encountered in interviews, with solutions implemented in Python and JavaScript.
 It serves as an excellent resource for honing your coding skills and gaining confidence in tackling complex algorithmic problems.
 
